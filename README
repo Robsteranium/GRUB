@@ -1,0 +1,6 @@
+GRUB refactor
+Do:
+rake db:migrate
+rake db:seed
+rails s
+Browse to localhost:3000
