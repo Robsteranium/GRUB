@@ -1,0 +1,34 @@
+%h1
+  Missing Deliveries List
+%p
+  = "Created on #{Time.now.to_date} for #{current_user.username}"
+%p
+  = "For deliveries on #{@delivery_date.to_date}"
+%table
+  %tr
+    %th
+      Name
+    %th
+      Address
+    %th
+      Postcode
+    %th
+      Phone
+    %th
+      Customer Notes
+    %th
+      Delivery Result
+  - @missed_deliveries.each do |d|
+    %tr
+      %td
+        = d.user.username
+      %td
+        = d.user.address
+      %td
+        = d.user.postcode
+      %td
+        = d.user.phone
+      %td
+        = d.user.delivery_notes
+      %td
+        = d.delivery_result

@@ -1,0 +1,30 @@
+%h1
+  My Balance
+%table
+  %tr
+    %td
+      Date
+    %td
+      Item
+    %td
+      Amount
+    %td
+      Balance
+  - @transactions.each do |transaction|
+    %tr
+      %td
+        = transaction.date.to_date
+      %td
+        = transaction.source
+      %td{ :style => "text-align: right;" }
+        &pound;
+        = round(transaction.amount,2)
+      %td
+  %tr
+    %td
+    %td
+    %td
+    %td{ :style => "text-align: right;" }
+      &pound;
+      = round(@user.balance,2)
+  

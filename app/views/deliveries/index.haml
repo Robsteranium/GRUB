@@ -1,0 +1,19 @@
+%h2
+  Administrate Deliveries
+%ul
+  %li
+    = link_to 'Calendar', :controller => :deliveries, :action => 'calendar'
+  %li
+    Next Delivery
+    %ul
+      %li
+        = link_to image_tag('checklist-icon.jpg'), :controller => :deliveries, :action => 'checklist'
+        = link_to 'Checklist', :controller => :deliveries, :action => 'checklist'
+      %li
+        = link_to image_tag('bike-icon.jpg'), :controller => :deliveries, :action => 'bike_map'
+        = link_to 'Bike Route', :controller => :deliveries, :action => 'bike_map'
+      %li
+        = link_to image_tag('van-icon.jpg'), :controller => :deliveries, :action => 'car_map'
+        = link_to 'Car Route', :controller => :deliveries, :action => 'car_map'
+      %li
+        = link_to 'Missed Deliveries', :controller => :deliveries, :action => 'missed_deliveries'

@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/rauto/!svn/ver/54/app/views/postoffice
+END
+error_message.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rauto/!svn/ver/42/app/views/postoffice/error_message.html.haml
+END
+mail.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/rauto/!svn/ver/1/app/views/postoffice/mail.html.haml
+END
+.tmp_sendreport.text.html.erb.19179~.haml
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/rauto/!svn/ver/1/app/views/postoffice/.tmp_sendreport.text.html.erb.19179~.haml
+END
+sendreport.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/rauto/!svn/ver/1/app/views/postoffice/sendreport.html.haml
+END
+password_reset_instructions.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/rauto/!svn/ver/40/app/views/postoffice/password_reset_instructions.html.haml
+END
+warn_of_delay.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rauto/!svn/ver/54/app/views/postoffice/warn_of_delay.html.haml
+END

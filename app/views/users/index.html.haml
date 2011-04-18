@@ -1,0 +1,52 @@
+%h1
+  = "Listing " + @users.length.to_s + " user profiles"
+%table
+  %tr
+    %th
+      Username
+    %th
+      Email
+    %th
+      Phone
+    %th
+      Balance
+    %th
+      Delivery Count
+    %th
+      Last login at:
+    %th
+      Roles:
+  - @users.each do |user|
+    %tr
+      %td
+        = h user.username
+      %td
+        = h user.email            
+      %td
+        = h user.phone
+      %td{ :style => "text-align: right;" }
+        &pound;
+        = h "#{round(user.balance,2)}"
+      %td{ :style => "text-align: right;" }
+        = h user.deliveries.count
+      %td
+        = h user.last_login_at
+      %td
+        = h user.roles.collect { |r| r.name }.join(', ')
+      %td
+        - unless user.role_symbols.include?(:admin)
+          = link_to 'Make admin', :controller => :users, :action => :flipadmin, :id => user.id
+        - else
+          = link_to 'Remove admin', :controller => :users, :action => :flipadmin, :id => user.id
+      %td
+        = link_to 'Edit Deliveries/ Subscription', :controller => :users, :action => :their_deliveries, :user_id => user.id
+      %td
+        = link_to 'View Transactions', :controller => :users, :action => :their_balance, :user_id => user.id
+      %td
+        = link_to 'Show', :controller => :users, :action => :showuser, :id => user.id
+      %td
+        = link_to 'Edit Account', edit_user_path(user)
+      %td
+        = link_to 'Delete', user, :confirm => 'Are you sure?', :method => :delete
+%br
+= link_to 'New user', new_user_path

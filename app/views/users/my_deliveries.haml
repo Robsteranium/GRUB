@@ -1,0 +1,71 @@
+%h2
+  My Deliveries
+%p
+%p
+  We do delivery runs on Thursdays and Fridays.  If you wish to change a delivery please do so before these days.
+%p
+  Subscriptions automatically add you to our delivery list (up to 3 months in advance).
+%h3
+  = "Upcoming deliveries to " + @user.username   
+%table
+  %tr
+    %th
+      Date
+    %th
+      Box Type
+  - @deliveries.each do |delivery|
+    %tr
+      %td
+        = delivery.date.to_date.to_s
+      %td
+        = delivery.box.name
+      %td
+        = link_to "cancel delivery", delivery, :method => :delete, :confirm => "Are you sure you wish to cancel this delivery?"
+  - form_for @delivery do |f|
+    = f.hidden_field :user_id, :value => @user.id
+    %tr
+      %td
+        = f.date_select :date
+      %td
+        = f.select :box_id, @box_options
+      %td
+        = f.submit "Add Delivery"
+%h3
+  Manage your subscription
+%p
+  - if @subscriptions.empty?
+    %p
+      You don't currently have any subscriptions.  You can use this form to set one up.
+  - else
+    %p
+      You are currently subscribed.
+    %table
+      %tr
+        %th
+          Day of the week
+        %th
+          Interval (between deliveries)
+        %th
+          Box
+        %th
+      - @subscriptions.each do |subscription|
+        %tr
+          %td
+            = subscription.weekday == 4 ? "Thursday" : "Friday"
+          %td
+            = subscription.interval == 7 ? "Weekly" : "Fortnightly"
+          %td
+            = subscription.box.name
+          %td
+            = link_to "cancel subscription", subscription, :method => :delete, :confirm => "Are you sure you wish to cancel your subscription (all planned deliveries will be cancelled)?"
+      - form_for @newsubscription do |fs|
+        = fs.hidden_field :user_id, :value => @user.id
+        %tr
+          %td
+            = fs.select :weekday, @day_options
+          %td
+            = fs.select :interval, @intervals
+          %td
+            = fs.select :box_id, @box_options
+          %td
+            = fs.submit "Add Subscription"

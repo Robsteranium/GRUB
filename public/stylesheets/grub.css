@@ -1,0 +1,38 @@
+#nav {
+  overflow: auto; }
+
+#nav ul li {
+  display: block;
+  float: left;
+  list-style: none;
+  padding: 1em; }
+
+#tabber {
+  float: left; }
+
+#admintabber {
+  float: right; }
+
+#tablefuture {
+  float: left; }
+
+#tablepast {
+  float: left; }
+
+table {
+  margin: 0; }
+
+td {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #dddddd; }
+
+th {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #cccccc; }
+
+tbody tr {
+  background: white; }
+tbody tr.odd {
+  background: #e6e6e6; }

@@ -1,0 +1,90 @@
+%h1
+  Delivery Route Map
+%h2
+  Map
+%script{ :src => "http://open.mapquestapi.com/sdk/js/v6.1.0/mqa.toolkit.js", :type => "text/javascript" }
+:javascript
+  var route_array, centre_point;
+  route_array = #{ @map.route["locations"].map{|x| { :latLng => x["latLng"]}}.reorder(@map.route["locationSequence"]).to_json};
+  centre_point = { lat: #{@map.centrepoint[0]}, lng: #{@map.centrepoint[1]} };
+  /*An example of using the MQA.EventUtil to hook into the window load event and execute defined function 
+    passed in as the last parameter .  You could alternatively create a plain function here and have it 
+    executed whenever you like (e.g. <body onload="yourfunction">).*/
+  MQA.EventUtil.observe(window, 'load', function() {
+    window.map = new MQA.TileMap(       /*constructs an instance of MQA.TileMap*/
+      document.getElementById('map'),   /*ID of element on the page where you want the map added*/
+      8,                                /*intial zoom level of the map*/
+      centre_point, /*center of map in latitude/longitude */
+      'map');                           /*map type (map)*/  
+    MQA.withModule('directions','smallzoom','mousewheel', function() {
+      map.addControl(
+        new MQA.SmallZoom(), 
+        new MQA.MapCornerPlacement(MQA.MapCorner.TOP_LEFT, new MQA.Size(5,5))
+      );
+      map.enableMouseWheelZoom();
+      map.addRoute(
+        route_array,
+        { ribbonOptions:{
+            draggable:true,
+            draggablepoi:true,
+            ribbonDisplay:{color:"#FF0000",colorAlpha:.33}
+          }, 
+          routeOptions:{routeType:"bicycle"}
+        }
+      );  
+    });
+  });
+%div{:id => "map", :style=> "width:750px; height:475px;"}
+%h2
+  Directions
+%div
+  %table
+    %tr
+      %th
+      %th
+        Narrative
+      %th
+        Distance
+      %th
+        Time
+    %tr
+      %td
+      %td
+        %strong
+          Start at St Wilfs
+      %td
+      %td
+    - @map.route["legs"].each_with_index do |leg, idx|
+      - leg["maneuvers"].each do |man|
+        %tr
+          %td
+            = image_tag man["iconUrl"]
+          %td
+            = man["narrative"]
+          %td
+            = round(man["distance"],2)
+          %td
+            = man["formattedTime"]
+      - unless idx == @map.route["legs"].count - 1
+        %tr
+          %td
+          %td
+            %strong
+              = "Drop #{@deliveries[idx-1].box.name} box with #{@deliveries[idx-1].user.username}"
+          %td
+          %td
+    %tr
+      %td
+      %td
+        %strong
+          Arrive back at St Wilfs
+      %td
+      %td
+    %tr
+      %td
+      %td
+      %td
+        = round(@map.route["distance"],2)
+      %td
+        = @map.route["formattedTime"]
+    

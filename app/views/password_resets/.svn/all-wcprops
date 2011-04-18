@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/rauto/!svn/ver/41/app/views/password_resets
+END
+edit.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/rauto/!svn/ver/40/app/views/password_resets/edit.html.haml
+END
+new.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/rauto/!svn/ver/40/app/views/password_resets/new.html.haml
+END

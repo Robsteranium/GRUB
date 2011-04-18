@@ -1,0 +1,8 @@
+%h1
+  Edit My Account
+- form_for @user, :url => account_path do |f|
+  = render :partial => "form", :object => f
+  = f.submit "Update"
+- if current_user.role_symbols.include?(:admin)
+  %br
+    = link_to "My Profile", account_path

@@ -1,0 +1,40 @@
+%p
+  = "Time:      "+ Time.now.to_s
+%p
+  = "Message:   "+ @exception.message
+%p
+  = "Location:  "+ @env['REQUEST_URI']
+%p
+  = "Params:    "+ @params.to_s
+  =# "Controller:"+ @params.delete('controller') || "NA"
+%p
+  = "Query:     "+ @env['QUERY_STRING']
+%p
+  = "Method:    "+ @env['REQUEST_METHOD']
+=# "SSL:       "+ @env['SERVER_PORT'].to_i == 443 ? "true" : "false"
+%p
+  = "Agent:     "+ @env['HTTP_USER_AGENT']
+%p
+  Backtrace
+  = @trace.to_a.join("</p>\n<p>")
+%p
+  Params
+  - unless @params.nil?
+    %ul
+      - @params.each do |key, val|
+        %li
+          = key + " : " + val.to_yaml
+%p
+  Session
+  - unless @session.nil?
+    %ul
+      - @session.each do |key, val|
+        %li
+          = key + " : " + val.to_yaml
+%p
+  Environment
+  - unless @env.nil?
+    %ul
+      - @env.each do |key, val|
+        %li
+          = key + " : " + val.to_s

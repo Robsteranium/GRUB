@@ -1,0 +1,54 @@
+%h1
+  Delivery Calendar
+#tablefuture
+  %h2
+    Future Deliveries
+  %table
+    %tr
+      %th
+        Date
+      %th
+        Count of Deliveries
+      %th
+        View Checklist
+      %th
+        Bike Route
+      %th
+        Car Route
+    - @drop_dates.each do |delivery_date|
+      %tr
+        %td
+          = delivery_date.to_date
+        %td{ :style => "text-align: right;" }
+          = @calendar[delivery_date].count
+        %td
+          = link_to image_tag( 'checklist-icon.jpg'), :action => :checklist, :day => delivery_date.day, :month => delivery_date.month, :year => delivery_date.year
+        %td
+          = link_to image_tag( 'bike-icon.jpg'), :action => :bike_map, :day => delivery_date.day, :month => delivery_date.month, :year => delivery_date.year
+        %td
+          = link_to image_tag( 'van-icon.jpg'), :action => :car_map, :day => delivery_date.day, :month => delivery_date.month, :year => delivery_date.year
+#tablepast
+  %h2
+    Past Deliveries
+  %table
+    %tr
+      %th
+        Date
+      %th
+        Count of Deliveries
+      %th
+        Count of Missed Deliveries
+      %th
+      %th
+    - @old_dates.each do |delivery_date|
+      %tr
+        %td
+          = delivery_date.to_date
+        %td{ :style => "text-align: right;" }
+          = @calendar[delivery_date].count
+        %td{ :style => "text-align: right;" }
+          = @calendar[delivery_date].select{|d| d.delivered == false}.count
+        %td
+          = link_to "View Missed", :action => :missed_deliveries, :day => delivery_date.day, :month => delivery_date.month, :year => delivery_date.year
+        %td
+          = link_to image_tag('checklist-icon.jpg'), :action => :checklist, :day => delivery_date.day, :month => delivery_date.month, :year => delivery_date.year

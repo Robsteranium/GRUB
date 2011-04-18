@@ -1,0 +1,6 @@
+%p
+  The following job has been delayed.  Please check the runner.
+%p
+  = "Job id:       "+ @job.id
+  = "Command:      "+ @job.command
+  = "Submitted at: "+ @job.submitted_at

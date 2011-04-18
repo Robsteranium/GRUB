@@ -1,0 +1,14 @@
+= title "Forgot Password" 
+%h1
+  Forgot Password
+%p
+  Fill out the form below and instructions to reset your password will be emailed to you:
+%p
+  - form_tag password_resets_path do
+    %p
+      %label
+        Email:
+      %br
+        = text_field_tag "email"
+    %p
+      = submit_tag "Reset my password"

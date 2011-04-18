@@ -1,0 +1,12 @@
+%p
+  = "Dear " + @name + ","
+%p
+  = "Thank-you for subscribing to the " + @reportname + " template.  Please find your customised report attached."
+%p
+  = "The next update will be on " + @updateon.day.to_s + "/" + @updateon.month.to_s + "/" + @updateon.year.to_s + "."
+%p
+  Kind regards,
+  %br
+  The Auto-Reporter Team
+%a{ :href => 'http://infonomics.ltd.uk' }
+  http://infonomics.ltd.uk

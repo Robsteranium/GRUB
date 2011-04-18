@@ -1,0 +1,24 @@
+%h1
+  = "Listing #{@subscriptions.length} subscriptions"
+%p
+  = link_to 'Roll Subscriptions', :controller => :subscriptions, :action => 'roll_subscriptions'
+%table
+  %tr
+    %th
+      Username
+    %th
+      Box Type
+    %th
+      Interval
+    %th
+      Weekday
+  - @subscriptions.each do |subscription|
+    %tr
+      %td
+        = link_to subscription.user.username
+      %td
+        = h subscription.box.name
+      %td
+        = h subscription.interval == 7 ? "Weekly" : "Fortnightly"
+      %td
+        = h subscription.weekday == 4 ? "Thursday" : "Friday"

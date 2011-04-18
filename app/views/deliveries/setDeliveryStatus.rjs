@@ -1,0 +1,1 @@
+page.replace_html "delivered_flag#{@delivery.id}".to_sym, :partial => 'selectDeliveryStatus', :object => @delivery

@@ -1,0 +1,6 @@
+- if @delivery.delivered.nil?
+  = link_to image_tag('unchecked_box.png'), {:controller => 'deliveries', :action => 'setDeliveryStatus', :delivery_id => @delivery.id, :status_to_set => "true"}, :remote => true
+- elsif @delivery.delivered == true
+  = link_to image_tag('tick.png'), {:controller => 'deliveries', :action => 'setDeliveryStatus', :delivery_id=> @delivery.id, :status_to_set => "false"}, :remote => true
+- else
+  = link_to image_tag('cross.png'), {:controller => 'deliveries', :action => 'setDeliveryStatus', :delivery_id => @delivery.id, :status_to_set => "true"}, :remote => true

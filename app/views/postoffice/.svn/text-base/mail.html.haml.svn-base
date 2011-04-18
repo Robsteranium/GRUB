@@ -1,0 +1,3 @@
+%p
+	= "Hi " + @recipient
+	Your inspirational thought for the day...

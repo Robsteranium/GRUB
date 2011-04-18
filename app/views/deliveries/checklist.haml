@@ -1,0 +1,88 @@
+:javascript
+  $j(document).ready(function() {
+    $j(".edit_delivery_result").each( function() {
+      $j(this).editable('updateDeliveryResult', {
+        type        :   'textarea',
+        tooltip     :   'Click to edit...',
+        cancel      :   'Cancel',
+        submit      :   'OK'
+      });
+    });
+    get_balance = function(delivery_id) { $j.get("getBalance/", { delivery_id: parseInt(delivery_id) }, function(data) {$j("#balance" + delivery_id).html(data);}, "text"); };
+    $j(".edit_payment").each( function() {
+      $j(this).editable('updatePayment', {
+        type        :   'textarea',
+        tooltip     :   'Click to edit...',
+        cancel      :   'Cancel',
+        submit      :   'OK',
+        callback    :   function(value, settings) {
+                          var del_id = this.id.gsub('p','');
+                          get_balance(del_id);
+                        }
+      });
+    });
+  });
+%h1
+  Delivery List
+%p
+  - if current_user
+    = "Created on #{Time.now.to_date} for #{current_user.username}"
+  - else
+    = "Created on #{Time.now.to_date} for no one in particular"
+%p
+  = "For #{@deliveries.count} deliveries on #{@delivery_date.to_date}"
+%p
+  = "NB: #{@deliveries.select{|d| d.delivered == true}.count} boxes have already been delivered/ collected"
+%p
+  The 'drop notes' describe guidance from the customer on where to put the box.  Use the 'delivery result notes' column to make a note of any problems you have with the delivery.
+%table
+  %tr
+    %th
+      Name
+    %th
+      Address
+    %th
+      Postcode
+    %th
+      Phone
+    %th
+      Drop Notes
+    %th
+      Box
+    %th
+      Balance
+    %th
+      Delivered?
+    %th
+      Delivery Result Notes
+    %th
+      Payment Collected
+  - for @delivery in @deliveries do
+    %tr
+      %td
+        = @delivery.user.username
+      %td
+        = @delivery.user.address
+      %td
+        = @delivery.user.postcode
+      %td
+        = @delivery.user.phone
+      %td
+        = @delivery.user.delivery_notes
+      %td
+        = @delivery.box.name
+      %td{ :style => "text-align: right;" }
+        %div{:id => "balance#{@delivery.id}"}
+          = render :partial => 'userBalance', :object => @delivery
+      %td{ :style => "text-align: center;" }
+        %div{:id => "delivered_flag#{@delivery.id}"}
+          = render :partial => 'selectDeliveryStatus', :object => @delivery
+      %td
+        %div{:class => "edit_delivery_result", :id => "d#{@delivery.id}", :name => "delivery_result" }
+          = @delivery.delivery_result
+      %td{ :style => "text-align: right;" }
+        %div{:class => "edit_payment", :id => "p#{@delivery.id}", :name => "payment_collected" }
+          = @delivery.payment_collected
+%p
+  You can add deliverys via the 
+  = link_to 'user admin page', :users
