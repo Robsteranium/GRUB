@@ -1,5 +1,13 @@
 %h1
   Register an account
 - form_for @user, :url => account_path do |f|
+  - if @user.errors.any?
+    %errorExplanation
+      %h2
+        = pluralize(@user.errors.count, "error") + " stopped us from creating this account:"
+      %ul
+        - @user.errors.full_messages.each do |msg|
+          %li
+            = msg
   = render :partial => "form", :object => f
   = f.submit "Register"

@@ -1,6 +1,14 @@
 %h1
   Edit My Account
 - form_for @user, :url => account_path do |f|
+  - if @user.errors.any?
+    %errorExplanation
+      %h2
+        = pluralize(@user.errors.count, "error") + " stopped us from changing this account:"
+      %ul
+        - @user.errors.full_messages.each do |msg|
+          %li
+            = msg
   = render :partial => "form", :object => f
   = f.submit "Update"
 - if current_user.role_symbols.include?(:admin)
